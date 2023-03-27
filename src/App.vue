@@ -1,47 +1,19 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="ivu-p">
+    <Alert>
+      当前 Vue 版本为 {{ vueVersion }}，View UI Plus 版本为 {{ version }}
+    </Alert>
+    <Input v-model="msg" />
+    <Button class="ivu-mt" type="primary" @click="handleClick">Click</Button>
+  </div>
 </template>
+<script setup>
+import { ref, version as vueVersion } from 'vue'
+import { version, Message } from 'view-ui-plus'
+const msg = ref('Hello View Design!')
 
-<style scoped>
-header {
-  line-height: 1.5;
+function handleClick() {
+  Message.info('Welcome to InsCode')
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+</script>
+<style></style>
