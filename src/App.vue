@@ -16,5 +16,4 @@ function handleClick() {
   Message.info('Welcome to InsCode')
 }
 </script>
-<style>
-</style>
+<style></style>
