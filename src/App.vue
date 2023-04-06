@@ -4,7 +4,7 @@
       当前 Vue 版本为 {{ vueVersion }}，View UI Plus 版本为 {{ version }}
     </Alert>
     <Input v-model="msg" />
-    <Button class="ivu-mt" type="primary" @click="handleClick">Click</Button>
+    <Button class="ivu-mt" type="primary" @click="handleClick">Click Me!</Button>
   </div>
 </template>
 <script setup>
