@@ -1,4 +1,1 @@
-run = "upm add guess;npm run dev"
-
-[nix]
-channel = "stable-22_11"
+run = "npm i && npm run dev"
