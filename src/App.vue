@@ -8,12 +8,13 @@
   </div>
 </template>
 <script setup>
-import { ref, version as vueVersion } from 'vue'
-import { version, Message } from 'view-ui-plus'
-const msg = ref('Hello View Design!')
+import { ref, version as vueVersion } from 'vue' // 从 Vue 中导入 ref 和 vueVersion
+import { version, Message } from 'view-ui-plus' // 从 view-ui-plus 中导入 version 和 Message
+const msg = ref('Hello View Design!') // 创建一个响应式的变量 msg，并将其初始值设置为 'Hello View Design!'
 
-function handleClick() {
-  Message.info('Welcome to InsCode')
+function handleClick() { // 定义一个名为 handleClick 的函数
+  Message.info('Welcome to InsCode') // 在页面上显示一个提示消息
 }
-</script>
+</script> // 结束 `script setup` 语法
+
 <style></style>
