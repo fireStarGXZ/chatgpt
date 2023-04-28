@@ -15,6 +15,6 @@ const msg = ref('Hello View Design!') // 创建一个响应式的变量 msg，�
 function handleClick() { // 定义一个名为 handleClick 的函数
   Message.info('Welcome to InsCode') // 在页面上显示一个提示消息
 }
-</script> // 结束 `script setup` 语法
+</script>
 
 <style></style>
