@@ -26,6 +26,8 @@
   </div>
 </template>
 <script>
+  import axios from 'axios';
+
   const token = 'Bearer ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SjBkQ0k2TkN3aVlYVmtJam9pWXpkbU16WTVOMlpqTldaak5EVmpNR0l5WldFNE5UVTNaRFkxTnpnM1lXVWlMQ0pzZFNJNklrbHVjME52WkdVaUxDSmxlSEFpT2pFMk9EVTFORGczT1Rrc0luVnlJam95TENKcWRHa2lPaUpCVUVsZlZFOUxSVTVmWXpkbU16WTVOMlpqTldaak5EVmpNR0l5WldFNE5UVTNaRFkxTnpnM1lXVXROQ0o5LmlyLTJYa1A4dFhNaFVldnlzTFhkUlJsY1VBV0ZiaWE5em9ZdGN6VlpleFk=';
   const api = 'https://api.ai100.ai/ai/api/ai/chat';
 
@@ -34,44 +36,41 @@
       return {
         question: '',
         loading: false,
-        dialogs: [
-          {
-            role: 'me',
-            text: '你好'
-          },
-          {
-            role: 'ai',
-            text: '你也好'
-          }
-        ]
+        dialogs: []
       }
     },
     methods: {
-      async handleSend () {
+      handleSend () {
         if (this.loading || this.question === '') return;
         this.loading = true;
-        // todo
-        const response = await fetch(api, this.getParams());
-        console.log(response)
-      },
-      getParams () {
-        const headers = {
-          "Accept": "*/*",
-				  "Authorization": token,
-				  "Content-Type": "application/json"
-        }
 
-        const payload = {
-          prompt: ' ',
-          question: this.question,
-          stream: false
-        }
+        const question = this.question;
+        this.question = '';
 
-        return {
-          method: 'POST',
-          headers,
-          body: JSON.stringify(payload)
-        }
+        this.dialogs.push({
+          role: 'me',
+          text: question
+        });
+
+        axios.post(api, 
+          {
+            prompt: '',
+            question,
+            stream: false
+          },
+          {
+            headers: {
+              Accept: '*/*',
+              Authorization: token
+            }
+          }
+        )
+        .then(({ data: res }) => {
+          console.log(res);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
       },
       handleNewChat () {
         this.dialogs = [];
