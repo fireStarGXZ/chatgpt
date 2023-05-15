@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-  const token = 'Bearer ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SjBkQ0k2TkN3aVlYVmtJam9pTmpZME56QTNaR016TUdabU5ETTRNRGs1WkRBek9EWTFPRFV5T0RsaE0yWWlMQ0pzZFNJNklubGhibWgxYVNJc0ltVjRjQ0k2TVRZNE5UVTBPRGM1T1N3aWRYSWlPaklzSW1wMGFTSTZJa0ZRU1Y5VVQwdEZUbDgyTmpRM01EZGtZek13Wm1ZME16Z3dPVGxrTURNNE5qVTROVEk0T1dFelppMDBJbjAuejRNWE4xOHVoQmI0Y29WbHd1dm4tNzA1eG1RRHBsRE43cHA3cUxURzN0NA==';
+  const token = 'Bearer ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SjBkQ0k2TkN3aVlYVmtJam9pWXpkbU16WTVOMlpqTldaak5EVmpNR0l5WldFNE5UVTNaRFkxTnpnM1lXVWlMQ0pzZFNJNklrbHVjME52WkdVaUxDSmxlSEFpT2pFMk9EVTFORGczT1Rrc0luVnlJam95TENKcWRHa2lPaUpCVUVsZlZFOUxSVTVmWXpkbU16WTVOMlpqTldaak5EVmpNR0l5WldFNE5UVTNaRFkxTnpnM1lXVXROQ0o5LmlyLTJYa1A4dFhNaFVldnlzTFhkUlJsY1VBV0ZiaWE5em9ZdGN6VlpleFk=';
   const api = 'https://api.ai100.ai/ai/api/ai/chat';
 
   export default {
@@ -62,7 +62,7 @@
         }
 
         const payload = {
-          prompt: '',
+          prompt: ' ',
           question: this.question,
           stream: false
         }
