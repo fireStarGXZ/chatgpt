@@ -14,7 +14,14 @@
        :autosize="{ minRows: 4, maxRows: 6 }" 
        placeholder="输入你的问题" 
       />
-      <Button class="ivu-mt" type="primary" size="large" :loading="loading" @click="handleSend">发送</Button>
+      <Row class="ivu-mt">
+        <Col>
+          <Button type="primary" size="large" icon="md-send" :loading="loading" @click="handleSend">发送</Button>
+        </Col>
+        <Col>
+          <Button size="large" class="ivu-ml" icon="md-add" :disabled="loading" @click="handleNewChat">新对话</Button>
+        </Col>
+      </Row>
     </div>
   </div>
 </template>
@@ -27,11 +34,11 @@
         dialogs: [
           {
             role: 'me',
-            text: 'vscode 的'
+            text: '你好'
           },
           {
             role: 'ai',
-            text: 'dshjfjksdhfkjsdhkjfdsjkhfksdhdfjkjkdsfjkhsdkjfhsddshjfjksdhfkjsdhkjfdsjkhfksdhdfjkjkdsfjkhsdkjfhsddshjfjksdhfkjsdhkjfdsjkhfksdhdfjkjkdsfjkhsdkjfhsd'
+            text: '你也好'
           }
         ]
       }
@@ -40,6 +47,10 @@
       handleSend () {
         if (this.loading) return;
         this.loading = true;
+        // todo
+      },
+      handleNewChat () {
+        this.dialogs = [];
       }
     }
   }
