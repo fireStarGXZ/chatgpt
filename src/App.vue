@@ -7,9 +7,9 @@
         </div>
       </template>
     </div>
-    <div class="prompt ivu-mt">
+    <div class="question ivu-mt">
       <Input
-       v-model="prompt" 
+       v-model="question" 
        type="textarea" 
        :autosize="{ minRows: 4, maxRows: 6 }" 
        placeholder="输入你的问题" 
@@ -26,10 +26,13 @@
   </div>
 </template>
 <script>
+  const token = 'Bearer ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SjBkQ0k2TkN3aVlYVmtJam9pTmpZME56QTNaR016TUdabU5ETTRNRGs1WkRBek9EWTFPRFV5T0RsaE0yWWlMQ0pzZFNJNklubGhibWgxYVNJc0ltVjRjQ0k2TVRZNE5UVTBPRGM1T1N3aWRYSWlPaklzSW1wMGFTSTZJa0ZRU1Y5VVQwdEZUbDgyTmpRM01EZGtZek13Wm1ZME16Z3dPVGxrTURNNE5qVTROVEk0T1dFelppMDBJbjAuejRNWE4xOHVoQmI0Y29WbHd1dm4tNzA1eG1RRHBsRE43cHA3cUxURzN0NA==';
+  const api = 'https://api.ai100.ai/ai/api/ai/chat';
+
   export default {
     data () {
       return {
-        prompt: '',
+        question: '',
         loading: false,
         dialogs: [
           {
@@ -44,10 +47,31 @@
       }
     },
     methods: {
-      handleSend () {
-        if (this.loading) return;
+      async handleSend () {
+        if (this.loading || this.question === '') return;
         this.loading = true;
         // todo
+        const response = await fetch(api, this.getParams());
+        console.log(response)
+      },
+      getParams () {
+        const headers = {
+          "Accept": "*/*",
+				  "Authorization": token,
+				  "Content-Type": "application/json"
+        }
+
+        const payload = {
+          prompt: '',
+          question: this.question,
+          stream: false
+        }
+
+        return {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload)
+        }
       },
       handleNewChat () {
         this.dialogs = [];
