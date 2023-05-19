@@ -83,7 +83,8 @@ export default {
         },
         onmessage: (msg) => {
           const data = JSON.parse(msg.data);
-          const finish = data.choices[0].finish_reason === 'stop';
+          const finish_reason = data.choices[0].finish_reason;
+          const finish = finish_reason === 'stop' || finish_reason === 'length';
           const content = data.choices[0].delta.content;
 
           if (finish) {
