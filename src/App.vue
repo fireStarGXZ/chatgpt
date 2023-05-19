@@ -21,10 +21,8 @@
   </div>
 </template>
 <script>
-import { EventSourcePolyfill } from 'event-source-polyfill';
-
-const token = 'Bearer ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SjBkQ0k2TkN3aVlYVmtJam9pWXpkbU16WTVOMlpqTldaak5EVmpNR0l5WldFNE5UVTNaRFkxTnpnM1lXVWlMQ0pzZFNJNklrbHVjME52WkdVaUxDSmxlSEFpT2pFMk9EVTFORGczT1Rrc0luVnlJam95TENKcWRHa2lPaUpCVUVsZlZFOUxSVTVmWXpkbU16WTVOMlpqTldaak5EVmpNR0l5WldFNE5UVTNaRFkxTnpnM1lXVXROQ0o5LmlyLTJYa1A4dFhNaFVldnlzTFhkUlJsY1VBV0ZiaWE5em9ZdGN6VlpleFk=';
-const api = 'https://api.ai100.ai/ai/api/ai/chat';
+import { fetchEventSource } from '@microsoft/fetch-event-source';
+import { apiKey, apiUrl } from './api';
 
 export default {
   data() {
@@ -56,43 +54,49 @@ export default {
         text: 'AI 思考中...'
       });
 
-      const query = {
-        prompt: '',
-        question,
-        stream: true
+      const dialog = this.dialogs.find(item => item.id === aiDialogID);
+
+      /**
+       * 发送请求，InsCode 已经集成了 GPT 能力
+       * 在 vite.config.js 中已通过环境变量写入了 apiKey（该 key 是动态写入使用者的，在 IDE 中是作者，发布到社区是运行该作品的用户）
+       * 发布到社区后，将消耗运行者的额度
+       * 注意：如果部署应用，任何人通过部署后的域名访问应用时，都将消耗部署者的额度
+       */
+      const body = {
+        messages: [
+          {
+            role: 'user',
+            content: question
+          }
+        ],
+        apikey: apiKey
       }
 
-      const source = new EventSourcePolyfill(
-        `${api}?question=${query.question}&prompt=${query.prompt}&stream=${query.stream}`,
-        {
-          headers: {
-            Accept: '*/*',
-            Authorization: token
-          }
-        }
-      )
+      const source = fetchEventSource(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body),
+        onopen: (response) => {
+          dialog.text = '';
+        },
+        onmessage: (msg) => {
+          const data = JSON.parse(msg.data);
+          const finish = data.choices[0].finish_reason === 'stop';
+          const content = data.choices[0].delta.content;
 
-      source.onopen = event => {
-        console.log("onopen", event);
-        const dialog = this.dialogs.find(item => item.id === aiDialogID);
-        dialog.text = '';
-      };
-      source.onmessage = event => {
-        if (event.data === "[DONE]") {
-          source.close();
-          this.loading = false;
+          if (finish) {
+            this.loading = false;
+          } else if (content) {
+            const text = content;
+            dialog.text += text;
+          }
+        },
+        onerror: (err) => {
+          console.log("error", err);
         }
-        if (event.data) {
-          const data = JSON.parse(event.data);
-          const text = data.message.content.parts.join("");
-          console.log(text);
-          const dialog = this.dialogs.find(item => item.id === aiDialogID);
-          dialog.text += text;
-        }
-      };
-      source.onerror = event => {
-        console.log("error", event);
-      };
+      });
     },
     handleNewChat() {
       this.dialogs = [];

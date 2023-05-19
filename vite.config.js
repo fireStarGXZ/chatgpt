@@ -6,5 +6,10 @@ export default defineConfig({
   server: {
     host: true
   },
-  plugins: [vue()]
+  plugins: [vue()],
+  define: {
+    'process.env': {
+      INSCODE_API_KEY: process.env.INSCODE_API_KEY
+    }
+  }
 })
