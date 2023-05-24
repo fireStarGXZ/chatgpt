@@ -82,6 +82,10 @@ export default {
           dialog.text = '';
         },
         onmessage: (msg) => {
+          if (msg.data === '[DONE]') {
+            this.loading = false;
+            return;
+          };
           const data = JSON.parse(msg.data);
           const finish_reason = data.choices[0].finish_reason;
           const finish = finish_reason === 'stop' || finish_reason === 'length';
