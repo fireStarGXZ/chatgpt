@@ -17,6 +17,9 @@
           <Button size="large" class="ivu-ml" icon="md-add" :disabled="loading" @click="handleNewChat">新对话</Button>
         </Col>
       </Row>
+      <Typography class="ivu-text-center ivu-m">
+        Powered By <img src="src/assets/logo.png" class="logo"> <a href="https://inscode.net" target="_blank">InsCode.net</a>
+      </Typography>
     </div>
   </div>
 </template>
@@ -143,5 +146,12 @@ export default {
 
 .dialog-item-ai .dialog-item-main {
   background-color: #eee;
+}
+.logo{
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }
 </style>
