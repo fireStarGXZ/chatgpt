@@ -18,7 +18,7 @@
         </Col>
       </Row>
       <Typography class="ivu-text-center ivu-m">
-        Powered By <img src="src/assets/logo.png" class="logo"> <a href="https://inscode.net" target="_blank">InsCode.net</a>
+        Powered By <img src="./assets/logo.png" class="logo"> <a href="https://inscode.net" target="_blank">InsCode.net</a>
       </Typography>
     </div>
   </div>
